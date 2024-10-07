@@ -43,4 +43,5 @@ public class Room
 
     [ForeignKey(nameof(RoomTypeId))]
     public RoomType? RoomType { get; set; }
+    public bool IsAvailable { get; internal set; }
 }

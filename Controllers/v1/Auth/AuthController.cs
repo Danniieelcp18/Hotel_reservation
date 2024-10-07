@@ -26,7 +26,7 @@ public class AuthController : ControllerBase
     }
 
 
-    [HttpPost("register")]
+    [HttpPost("registerEmployee")]
     public async Task<IActionResult> Register(Employee newEmployee)
     {
         if (!ModelState.IsValid)
@@ -43,7 +43,26 @@ public class AuthController : ControllerBase
 
         _context.Employees.Add(newEmployee);
         await _context.SaveChangesAsync();
-        return Ok("User registered successfully");
+        return Ok("Employee registered successfully");
+    }
+
+    [HttpPost("registerGuest")]
+    public async Task<IActionResult> RegisterGuest(Guest newGuest)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        if (_context.Employees.Any(u => u.Email == newGuest.Email))
+        {
+            return BadRequest("Email already exists");
+        }
+
+
+        _context.Guests.Add(newGuest);
+        await _context.SaveChangesAsync();
+        return Ok("Guest registered successfully");
     }
 
     [HttpPost("login")]
