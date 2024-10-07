@@ -40,5 +40,5 @@ public class Guest
     public required string PhoneNumber { get; set; }
 
     [Column("bhirtdate")]
-    public Date? Bhirthdate { get; set; }
+    public DateTime? Bhirthdate { get; set; }
 }
