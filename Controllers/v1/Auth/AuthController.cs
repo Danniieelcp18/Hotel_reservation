@@ -8,11 +8,14 @@ using Hotel_Reservation.DTOs;
 using Hotel_Reservation.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Swashbuckle.AspNetCore.Annotations;
+using System.Threading.Tasks;
 
 namespace Hotel_Reservation.Controllers.v1.Auth;
 
 [ApiController]
 [Route("api/v1/Auth")]
+
 public class AuthController : ControllerBase
 {
     private readonly ApplicationDbContext _context;
@@ -25,9 +28,19 @@ public class AuthController : ControllerBase
         _utilities = utilities;
     }
 
-
-    [HttpPost("registerEmployee")]
-    public async Task<IActionResult> Register(Employee newEmployee)
+     
+        
+   /// <summary>
+        /// Registers a new employee.
+        /// </summary>
+        /// <param name="newEmployee">The employee information.</param>
+        /// <returns>A message indicating the result of the registration.</returns>
+        [HttpPost("registerEmployee")]
+      /*   [SwaggerOperation(Summary = "Register a new employee")]
+        [SwaggerResponse(200, "Employee registered successfully")]
+        [SwaggerResponse(400, "Invalid model state or email already exists")] */
+  
+          public async Task<IActionResult> Register(Employee newEmployee)
     {
         if (!ModelState.IsValid)
         {
@@ -46,7 +59,8 @@ public class AuthController : ControllerBase
         return Ok("Employee registered successfully");
     }
 
-    [HttpPost("registerGuest")]
+        [HttpPost("registerGuest")]
+     
     public async Task<IActionResult> RegisterGuest(Guest newGuest)
     {
         if (!ModelState.IsValid)

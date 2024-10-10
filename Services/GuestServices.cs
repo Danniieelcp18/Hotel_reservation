@@ -27,7 +27,7 @@ public class GuestServices : IGuestRepository
             await _context.SaveChangesAsync();
         }
         return guest;
-      
+
     }
 
     public async Task<IEnumerable<Guest>> GetAll()
@@ -35,7 +35,7 @@ public class GuestServices : IGuestRepository
         return await _context.Guests.ToListAsync();
     }
 
-    public  async Task<Guest> GetById(int id)
+    public async Task<Guest> GetById(int id)
     {
         var guest = await _context.Guests.FindAsync(id);
         return guest;
@@ -54,23 +54,20 @@ public class GuestServices : IGuestRepository
             v.Email.Contains(keyword)).ToListAsync();
     }
 
-    public async Task<Guest> Update( Guest guest)
+    public async Task<Guest> Update(Guest guest)
     {
 
         if (guest == null)
         {
-            throw new ArgumentNullException(nameof(guest), "El vehículo no puede ser nulo.");
+            throw new ArgumentNullException(nameof(guest), "El cliente no puede ser nullo.");
         }
+        _context.Entry(guest).State = EntityState.Modified;
+        await _context.SaveChangesAsync();
+        return guest;
 
-     
-        
-            _context.Entry(guest).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
-            return guest;
-        
-       
 
-        }
 
-  
+    }
+
+
 }
