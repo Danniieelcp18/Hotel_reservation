@@ -7,6 +7,7 @@ using Hotel_Reservation.Models;
 using Hotel_Reservation.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Hotel_Reservation.Controllers.v1.Bookings;
 
@@ -17,6 +18,12 @@ public class BookinGetController(IBooking bookingService) : ControllerBase
 
     [HttpGet("{id}")]
     [Authorize]
+     [SwaggerOperation(
+        Summary = "Gets a booking by ID",
+        Description = "Retrieves the details of a booking identified by the specified ID. Requires authorization."
+    )]
+    [ProducesResponseType(typeof(Booking), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<Booking>> GetBooking(int id)
         {
             var booking = await _bookingService.GetId(id);

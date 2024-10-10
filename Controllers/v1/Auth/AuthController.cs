@@ -14,7 +14,9 @@ using System.Threading.Tasks;
 namespace Hotel_Reservation.Controllers.v1.Auth;
 
 [ApiController]
-[Route("api/v1/Auth")]
+[Route("api/v1/auth")]
+[Tags("auth")]
+
 
 public class AuthController : ControllerBase
 {
@@ -28,19 +30,15 @@ public class AuthController : ControllerBase
         _utilities = utilities;
     }
 
-     
-        
-   /// <summary>
-        /// Registers a new employee.
-        /// </summary>
-        /// <param name="newEmployee">The employee information.</param>
-        /// <returns>A message indicating the result of the registration.</returns>
-        [HttpPost("registerEmployee")]
-      /*   [SwaggerOperation(Summary = "Register a new employee")]
-        [SwaggerResponse(200, "Employee registered successfully")]
-        [SwaggerResponse(400, "Invalid model state or email already exists")] */
-  
-          public async Task<IActionResult> Register(Employee newEmployee)
+
+    [HttpPost("register_employee")]
+    [SwaggerOperation(Summary = "Register a new employee",
+     Description = "you can register a new employee"
+    )]
+    [SwaggerResponse(200, "Employee registered successfully")]
+    [SwaggerResponse(400, "Invalid model state or email already exists")]
+
+    public async Task<IActionResult> Register(Employee newEmployee)
     {
         if (!ModelState.IsValid)
         {
@@ -59,8 +57,13 @@ public class AuthController : ControllerBase
         return Ok("Employee registered successfully");
     }
 
-        [HttpPost("registerGuest")]
-     
+    [HttpPost("register_guest")]
+    [SwaggerOperation(Summary = "Register a new guest",
+   Description = "you can register a new guest"
+  )]
+    [SwaggerResponse(200, "Guest registered successfully")]
+    [SwaggerResponse(400, "Invalid model state or email already exists")]
+
     public async Task<IActionResult> RegisterGuest(Guest newGuest)
     {
         if (!ModelState.IsValid)
@@ -80,6 +83,14 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("login")]
+    
+    [SwaggerOperation(
+        Summary = "Logs in an employee",
+        Description = "Authenticates an employee by email and password, returning a JWT token upon successful login."
+    )]
+    [ProducesResponseType(typeof(object), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> Login(LoginEmployeeDto request)
     {
         if (!ModelState.IsValid)

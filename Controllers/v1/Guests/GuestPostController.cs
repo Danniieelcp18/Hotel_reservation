@@ -10,7 +10,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace Hotel_Reservation.Controllers.v1.Guests;
 
     [ApiController]
-    [Route("api/v1/Guests")]
+    [Route("api/v1/guests")]
+    [Tags("guests")]
     public class GuestPostController(IGuestRepository guestService) : ControllerBase
     { 
          private readonly IGuestRepository _guestService = guestService;

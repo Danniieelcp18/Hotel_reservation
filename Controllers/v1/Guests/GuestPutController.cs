@@ -6,11 +6,13 @@ using Hotel_Reservation.Models;
 using Hotel_Reservation.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Hotel_Reservation.Controllers.v1.Guests;
 
     [ApiController]
-    [Route("api/v1/Guests")]
+    [Route("api/v1/guests")]
+    [Tags("guests")]
     
     public class GuestPutController(GuestServices guestService) : ControllerBase
     {
@@ -19,6 +21,13 @@ namespace Hotel_Reservation.Controllers.v1.Guests;
 
     [HttpPut]
     [Authorize]
+    [SwaggerOperation(
+        Summary = "Updates a guest",
+        Description = "Updates the details of an existing guest. Requires authorization."
+    )]
+    [ProducesResponseType(typeof(Guest), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult<Guest>> UpdateGuest(Guest guest)
     {
         if (guest == null)

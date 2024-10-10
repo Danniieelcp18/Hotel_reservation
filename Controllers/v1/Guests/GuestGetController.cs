@@ -6,15 +6,24 @@ using Hotel_Reservation.Models;
 using Hotel_Reservation.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Hotel_Reservation.Controllers.v1.Guests;
 
 [ApiController]
-[Route("api/v1/Guests")]
+[Route("api/v1/guests")]
+[Tags("guests")]
 
 public class GuestGetController(IGuestRepository guestService) : ControllerBase
 {
     private readonly IGuestRepository _guestService = guestService;
+
+     [SwaggerOperation(
+        Summary = "Gets a guest by ID",
+        Description = "Retrieves the details of a guest identified by the specified ID. Requires authorization."
+    )]
+    [ProducesResponseType(typeof(Guest), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
 
     [HttpGet("{id}")]
     [Authorize]
@@ -25,8 +34,13 @@ public class GuestGetController(IGuestRepository guestService) : ControllerBase
         return Ok(guest);
     }
 
-    [HttpGet]
+    [HttpGet("get_all")]
     [Authorize]
+    [SwaggerOperation(
+        Summary = "Gets all guests",
+        Description = "Retrieves a list of all guests. Can filter by an optional keyword."
+    )]
+    [ProducesResponseType(typeof(IEnumerable<Guest>), StatusCodes.Status200OK)]
     public async Task<ActionResult<IEnumerable<Guest>>> GetAllGuests(string keyword = null)
     {
         var guests = await _guestService.GetByKeyword(keyword);
@@ -35,7 +49,13 @@ public class GuestGetController(IGuestRepository guestService) : ControllerBase
 
 
     [HttpGet("keyword")]
-    [Authorize]
+    [Authorize] 
+    [SwaggerOperation(
+        Summary = "Gets guests by keyword",
+        Description = "Retrieves guests that match the specified search keyword. Requires authorization."
+    )]
+    [ProducesResponseType(typeof(IEnumerable<Guest>), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<IEnumerable<Guest>>> GetGuestsByKeyword(string keyword)
     {
         var guests = await _guestService.GetByKeyword(keyword);
