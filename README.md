@@ -14,8 +14,7 @@ Este proyecto es una API construida con *ASP.NET Core, utilizando una arquitectu
 ### 1. Clona el repositorio
 
 bash
-git clone https://github.com/BrayanLanda/HotelApi
-cd HotelApi 
+[(https://github.com/Danniieelcp18/Hotel_reservation.git)]
 
 
 ### 2. Instalar paquetes NuGet
