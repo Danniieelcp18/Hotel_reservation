@@ -14,7 +14,7 @@ namespace Hotel_Reservation.Controllers.v1.Bookings;
 [Route("api/v1/bookings")]
 [Tags("bookings")]
 
-public class BookinDeleteController(IBooking bookingService) : ControllerBase
+public class BookingDeleteController(IBooking bookingService) : ControllerBase
 {
     private readonly IBooking _bookingService = bookingService;
 

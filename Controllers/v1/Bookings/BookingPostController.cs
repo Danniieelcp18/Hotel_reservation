@@ -11,8 +11,9 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace Hotel_Reservation.Controllers.v1.Bookings;
 
     [ApiController]
-    [Route("api/v1/Bookings")]
-    public class bookingPostController(IBooking bookingService) : ControllerBase
+    [Route("api/v1/bookings")]
+    [Tags("bookings")]
+    public class BookingPostController(IBooking bookingService) : ControllerBase
     {
          private readonly IBooking _bookingService = bookingService;
 
@@ -27,7 +28,6 @@ namespace Hotel_Reservation.Controllers.v1.Bookings;
         public async Task<ActionResult> CreateBooking([FromBody] Booking booking)
         {
             await _bookingService.Add(booking);
-            return CreatedAtAction(nameof(BookinGetController.GetBooking), new { id = booking.Id }, booking);
+            return CreatedAtAction(nameof(BookingGetController.GetBooking), new { id = booking.Id }, booking);
         }
     }
-   

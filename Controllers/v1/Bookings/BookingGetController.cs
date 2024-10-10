@@ -12,8 +12,9 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace Hotel_Reservation.Controllers.v1.Bookings;
 
 [ApiController]
-[Route("api/v1/Booking")]
-public class BookinGetController(IBooking bookingService) : ControllerBase
+[Route("api/v1/bookings")]
+[Tags("bookings")]
+public class BookingGetController(IBooking bookingService) : ControllerBase
 {  private readonly IBooking _bookingService = bookingService;
 
     [HttpGet("{id}")]

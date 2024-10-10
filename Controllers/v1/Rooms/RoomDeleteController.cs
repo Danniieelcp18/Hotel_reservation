@@ -21,7 +21,7 @@ public class RoomDeleteController(IRoomRepository roomRepository) : ControllerBa
 
     [HttpDelete("{id}")]
     [Authorize]
-    [Authorize]
+
     [SwaggerOperation(
         Summary = "Deletes a room by ID",
         Description = "Removes a room identified by the specified ID. Requires authorization."
